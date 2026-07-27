@@ -1,11 +1,14 @@
-import Navbar from './components/Navbar/Navbar.jsx'
+import { Routes, Route } from 'react-router-dom'
+import Layout from './layouts/Layout'
+import Home from './pages/Home'
 
 function App() {
     return (
-        <>
-            <Navbar />
-            <h1 className="text-3xl text-orange-500">APP</h1>
-        </>
+        <Routes>
+            <Route element={<Layout />}>
+                <Route path="/" element={<Home />} />
+            </Route>
+        </Routes>
     )
 }
 
