@@ -1,5 +1,5 @@
 import express from 'express'
-import { registerUser } from '../controllers/authControllers.js'
+import { registerUser, profile } from '../controllers/authControllers.js'
 
 const router = express.Router()
 
@@ -15,9 +15,6 @@ router.post('/logout', (req, res) => {
     res.json({ message: 'Hiciste una petición POST - /logout' })
 })
 
-router.get('/profile', (req, res) => {
-    console.log('Hiciste una petición GET - /profile')
-    res.json({ message: 'Hiciste una petición GET - /profile' })
-})
+router.get('/profile', profile)
 
 export default router

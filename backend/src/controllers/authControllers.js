@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
+import jwt, { decode } from 'jsonwebtoken'
 import UserModel from '../models/UserModel.js'
 import { registerSchema } from '../schemas/authSchema.js'
 
@@ -49,5 +49,36 @@ export const registerUser = async (req, res) => {
             .json({ message: 'Usuario registrado con éxito' })
     } catch (error) {
         res.json(error)
+    }
+}
+
+export const profile = async (req, res) => {
+    // Extraer el accessToken enviado por el cliente
+    const token = req.cookies.accessToken
+
+    try {
+        // Verificar o decodificar el token
+        const decoded = jwt.verify(token, process.env.JWT_SECRET)
+
+        // Buscar el usuario en la BD
+        const user = await UserModel.findById(decoded.userId)
+
+        if (!user) {
+            return res.status(404).json({ message: 'Usuario no encontrado' })
+        }
+
+        console.log(
+            'USUARIO ENCONTRADO CON EXITO y enviado al front datos del usuario'
+        )
+        res.status(200).json({
+            id: user._id,
+            email: user.email,
+            isAdmin: user.isAdmin,
+        })
+    } catch (error) {
+        res.status(401).json({ message: 'No autorizado' })
+    }
+    return {
+        user: 'test user',
     }
 }
