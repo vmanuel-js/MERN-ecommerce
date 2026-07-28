@@ -5,6 +5,7 @@ const API_URL = import.meta.env.VITE_BACKEND_URL + '/auth'
 // http://localhost:3001/api/auth/register
 // http://localhost:3001/api/auth/profile
 // http://localhost:3001/api/auth/login
+// http://localhost:3001/api/auth/logout
 
 // Para incluir la cookies en las peticiones
 axios.defaults.withCredentials = true
@@ -63,7 +64,16 @@ export const registerService = async (
     }
 }
 
-export const logoutService = async () => {}
+export const logoutService = async () => {
+    try {
+        const response = await axios.post(`${API_URL}/logout`)
+        return response.data
+    } catch (error) {
+        throw new Error(
+            error.response?.data?.message || 'Error al cerrar la sesión',
+        )
+    }
+}
 
 export const getProfileService = async () => {
     try {
