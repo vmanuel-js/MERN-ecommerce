@@ -1,6 +1,10 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import { loginService } from '../../services/authService.js'
+import { useUser } from '../../context/UserContext.jsx'
+import toast from 'react-hot-toast'
+import { Navigate } from 'react-router-dom'
 
 const LoginForm = () => {
     const {
@@ -12,11 +16,26 @@ const LoginForm = () => {
         mode: 'onChange',
     })
 
+    const { setUserInfo, userInfo } = useUser()
     const [showPassword, setShowPassword] = useState(false)
+    const [redirect, setRedirect] = useState(false)
 
-    const onSubmit = (data) => {
-        console.log(data)
-        reset()
+    const onSubmit = async (data) => {
+        const result = await loginService(data, reset, setRedirect, setUserInfo)
+
+        if (result.success) {
+            toast.success(result.message)
+        } else {
+            toast.error(result.message)
+        }
+    }
+
+    if (redirect && userInfo.isAdmin) {
+        // return <Navigate to={"/admin/dashboard"}/>
+    }
+
+    if (redirect && !userInfo.isAdmin) {
+        return <Navigate to={'/'} />
     }
 
     return (

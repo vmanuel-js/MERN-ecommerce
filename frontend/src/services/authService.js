@@ -3,11 +3,36 @@ import axios from 'axios'
 // Configuración base de axios para autenticación
 const API_URL = import.meta.env.VITE_BACKEND_URL + '/auth'
 // http://localhost:3001/api/auth/register
+// http://localhost:3001/api/auth/profile
+// http://localhost:3001/api/auth/login
 
 // Para incluir la cookies en las peticiones
 axios.defaults.withCredentials = true
 
-export const loginService = async () => {}
+export const loginService = async (data, reset, setRedirect, setUserInfo) => {
+    try {
+        const response = await axios.post(`${API_URL}/login`, data, {
+            headers: { 'Content-Type': 'application/json' },
+            withCredentials: true,
+        })
+
+        // Si la respuesta es exitosa
+        if (response.status === 200) {
+            setUserInfo(response.data)
+            reset()
+            setRedirect(true)
+            return {
+                success: true,
+                message: 'Inicio de sesión exitoso',
+            }
+        }
+    } catch (error) {
+        return {
+            success: false,
+            message: 'Error al loguearse',
+        }
+    }
+}
 
 export const registerService = async (
     data,

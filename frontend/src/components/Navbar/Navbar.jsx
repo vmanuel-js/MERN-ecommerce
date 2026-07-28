@@ -6,8 +6,6 @@ import { useUser } from '../../context/UserContext.jsx'
 
 const Navbar = () => {
     const { loading, userInfo } = useUser()
-    console.log(userInfo)
-    console.log(loading)
 
     return (
         <header>
