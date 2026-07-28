@@ -1,5 +1,5 @@
-import { useState, useContext } from 'react'
-import { UserContext } from '../../context/UserContext.jsx'
+import { useState } from 'react'
+import { UserContext, useUser } from '../../context/UserContext.jsx'
 import { useForm } from 'react-hook-form'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { registerService } from '../../services/authService.js'
@@ -16,7 +16,8 @@ const RegisterForm = () => {
         mode: 'onChange',
     })
 
-    const { userInfo, checkSession } = useContext(UserContext)
+    const { userInfo, checkSession } = useUser()
+    // const { userInfo, checkSession } = useContext(UserContext)
     const [showPassword, setShowPassword] = useState(false)
     const [redirect, setRedirect] = useState(false)
 
