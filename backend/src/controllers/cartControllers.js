@@ -241,6 +241,12 @@ export const getCartTotal = async (req, res) => {
         )
 
         if (!cart) {
+            return res.status(404).json({
+                message: 'Carrito no encontrado',
+            })
+        }
+
+        if (cart) {
             const total = cart.products.reduce((acc, item) => {
                 return acc + item.productId.price * item.quantity
             }, 0)

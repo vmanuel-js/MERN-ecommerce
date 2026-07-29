@@ -58,6 +58,7 @@ export const CartContextProvider = ({ children }) => {
                             _id: product.productId._id,
                             name: product.productId.name,
                             price: product.productId.price,
+                            imageUrl: product.productId.imageUrl,
                             description: product.productId.description,
                             stock: product.productId.stock,
                             quantity: product.productId.quantity,

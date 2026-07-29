@@ -55,17 +55,37 @@ DELETE  http://localhost:3001/api/products/6a698380b210ea7ed07bd492
 
 ### ADD TO CART
 POST http://localhost:3001/api/cart/add
-
 Content-Type: application/json
 
 {
-    "userId": "",
-    "productId": "",
-    "quantity": ""
+    "userId": "6a6a5e39d55b4b33860258a6",
+    "productId": "6a698453b210ea7ed07bd493",
+    "quantity": 4
 }
 
 ### GET CART
-GET http://localhost:3001/api/cart/get/dasdad
+GET  http://localhost:3001/api/cart/get/6a6a5e39d55b4b33860258a6
 
 ### UPDATE CART
-POST http://localhost:3001/api/cart/update/dasda
+PUT http://localhost:3001/api/cart/update/6a6a5e39d55b4b33860258a6
+Content-Type: application/json
+
+{
+    "productId": "6a698453b210ea7ed07bd493",
+    "quantity": 3
+}
+
+### DELETE PRODUCT FROM CART
+DELETE http://localhost:3001/api/cart/removeProduct/6a6980b9087782c596b0c8a2
+Content-Type: application/json
+
+{
+    "productId": "6a6980b9087782c596b0c8a2"
+}
+
+### CLEAR CART
+DELETE http://localhost:3001/api/cart/clear/6a6a5e39d55b4b33860258a6
+Content-Type: application/json
+
+### GET CART TOTAL
+GET http://localhost:3001/api/cart/total/6a6a5e39d55b4b33860258a6
