@@ -19,3 +19,34 @@ Content-Type: application/json
 
 ### USER LOGOUT
 POST http://localhost:3001/api/auth/logout
+
+### ----------------------------------------
+
+### OBTENER TODOS LOS PRODUCTOS 
+GET http://localhost:3001/api/products
+
+### OBTENER PRODUCTO POR ID
+GET http://localhost:3001/api/products/6a697b89100b41cc293330b3
+
+### CREAR PRODUCTO
+POST http://localhost:3001/api/products
+Content-Type: application/json
+
+{
+    "name": "Tacos Mexicanos",
+    "description": "Tortillas de maíz rellenas con carne al pastor, cebolla, cilantro y piña, servidas con salsa picante al gusto.",
+    "price": 18,
+    "stock": 15,
+    "imageUrl": "https://res.cloudinary.com/uz3ydaj6/image/upload/v1785296771/tacos_m7nuih.png"
+}
+
+### ACTUALIZAR PRODUCTO
+PUT http://localhost:3001/api/products/6a6980b9087782c596b0c8a2
+Content-Type: application/json
+
+{
+    "price": 15
+}
+
+### ELIMINAR PRODUCTO
+DELETE  http://localhost:3001/api/products/6a698380b210ea7ed07bd492
