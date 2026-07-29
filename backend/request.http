@@ -50,3 +50,22 @@ Content-Type: application/json
 
 ### ELIMINAR PRODUCTO
 DELETE  http://localhost:3001/api/products/6a698380b210ea7ed07bd492
+
+### ----------------------------------------
+
+### ADD TO CART
+POST http://localhost:3001/api/cart/add
+
+Content-Type: application/json
+
+{
+    "userId": "",
+    "productId": "",
+    "quantity": ""
+}
+
+### GET CART
+GET http://localhost:3001/api/cart/get/dasdad
+
+### UPDATE CART
+POST http://localhost:3001/api/cart/update/dasda

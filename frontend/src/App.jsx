@@ -5,6 +5,7 @@ import Register from './pages/Register.jsx'
 import Login from './pages/Login.jsx'
 import { UserContextProvider } from './context/UserContext.jsx'
 import { ProductContextProvider } from './context/ProductContext.jsx'
+import { CartContextProvider } from './context/CartContext.jsx'
 import { Toaster } from 'react-hot-toast'
 import { DetailProduct } from './pages/DetailProduct.jsx'
 
@@ -12,17 +13,19 @@ function App() {
     return (
         <UserContextProvider>
             <ProductContextProvider>
-                <Routes>
-                    <Route element={<Layout />}>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/register" element={<Register />} />
-                        <Route path="/login" element={<Login />} />
-                        <Route
-                            path="/detailProduct/:id"
-                            element={<DetailProduct />}
-                        />
-                    </Route>
-                </Routes>
+                <CartContextProvider>
+                    <Routes>
+                        <Route element={<Layout />}>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/register" element={<Register />} />
+                            <Route path="/login" element={<Login />} />
+                            <Route
+                                path="/detailProduct/:id"
+                                element={<DetailProduct />}
+                            />
+                        </Route>
+                    </Routes>
+                </CartContextProvider>
             </ProductContextProvider>
             <Toaster />
         </UserContextProvider>
