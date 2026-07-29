@@ -22,18 +22,28 @@ export const ProductContextProvider = ({ children }) => {
 
     // Función para traer todos los productos
     // useCallback = No se vuelva a lanzar en los re-renderizados
-    const getProducts = useCallback(async (id) => {
-        setProductsLoading(true)
-        setProduct({}) // Resetear el producto anterior
-
+    const getProducts = useCallback(async () => {
         try {
             const response = await axios.get(API_URL)
-            console.log(response)
             setProducts(response.data)
         } catch (error) {
             setError(error.message || 'Error al obtener los productos')
         } finally {
             setProductsLoading(false)
+        }
+    }, [])
+
+    // Función para obtener un producto por Id
+    const getProductById = useCallback(async (id) => {
+        setProductLoading(true)
+        setProduct({})
+        try {
+            const response = await axios.get(`${API_URL}/${id}`)
+            setProduct(response.data)
+        } catch (error) {
+            setError(error.message || 'Error al obtener el producto')
+        } finally {
+            setProductLoading(false)
         }
     }, [])
 
@@ -50,6 +60,7 @@ export const ProductContextProvider = ({ children }) => {
         productLoading,
         error,
         getProducts,
+        getProductById,
     }
 
     return (

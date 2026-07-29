@@ -6,9 +6,8 @@ export const CardProduct = ({
     product: { _id, name, price, imageUrl, description, stock },
 }) => {
     const { isAuthenticated } = useUser()
-    console.log(name, price, imageUrl)
     return (
-        <div className="card bg-base-100 w-80 shadow-lg">
+        <div className="card bg-base-100 w-80 lg:w-[30%] mt-4 shadow-lg">
             <figure>
                 <img
                     className="aspect-9/9 object-cover"
