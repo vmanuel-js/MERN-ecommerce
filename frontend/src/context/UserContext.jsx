@@ -6,14 +6,12 @@ export const UserContextProvider = ({ children }) => {
     const [userInfo, setUserInfo] = useState({})
     const [loading, setLoading] = useState(true)
 
-    // Funcion para verificar la sesión del usuario
     const checkSession = async () => {
         try {
             setLoading(true)
             const userData = await getProfileService()
             setUserInfo(userData)
         } catch (error) {
-            console.log('No hay sesión activa: ', error)
             setUserInfo({})
         } finally {
             setLoading(false)

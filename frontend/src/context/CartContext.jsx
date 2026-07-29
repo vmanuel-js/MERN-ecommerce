@@ -19,7 +19,7 @@ export const CartContextProvider = ({ children }) => {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [loading, setLoading] = useState(true)
 
-    const { getUserId, isAuthenticated } = useUser()
+    const { getUserId, isAuthenticated, loading: userLoading } = useUser()
 
     // Función para cargar el carrito desde el LocalStorage
     const loadLocalCart = () => {
@@ -146,11 +146,11 @@ export const CartContextProvider = ({ children }) => {
         return () => {
             isMounted = false
         }
-    }, [])
+    }, [userLoading])
 
     // Añadir producto al carrito
     const addToCart = async (product, quantity = 1) => {
-        if (isAuthenticated) {
+        if (isAuthenticated()) {
             // Usuario autenticado debemos usar el backend
             try {
                 setLoading(true)
@@ -193,11 +193,11 @@ export const CartContextProvider = ({ children }) => {
 
     // Eliminar producto del carrito
     const removeFromCart = async (productId) => {
-        if (isAuthenticated) {
+        if (isAuthenticated()) {
             try {
                 setLoading(true)
                 const userId = getUserId()
-                await removeFromCart(userId, productId)
+                await removeFromCartService(userId, productId)
 
                 // Recargar el carrito después de eliminar
                 await loadCart()
@@ -226,7 +226,7 @@ export const CartContextProvider = ({ children }) => {
         }
     }
 
-    // Función para actualizar cantidad del producto
+    // Función para actualizar cantidad del producto 100
     const updateQuantity = async (productId, newQuantity) => {
         if (newQuantity < 1) {
             toast.error('La cantidad debe ser al menos 1')
@@ -302,7 +302,7 @@ export const CartContextProvider = ({ children }) => {
     // Escuchar cambios de autenticación por separado
     useEffect(() => {
         const previousAuthState =
-            localStorage.getItem('wasAuthenticated') === true
+            localStorage.getItem('wasAuthenticated') === 'true'
         const currentAuthState = isAuthenticated()
 
         // Solo actuar si realmente cambió el estado de autenticación

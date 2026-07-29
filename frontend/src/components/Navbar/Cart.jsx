@@ -1,4 +1,19 @@
+import { ModalCart } from './ModalCart.jsx'
+import { useCart } from '../../context/CartContext.jsx'
+
 const Cart = () => {
+    const { total, itemsQuantity, openModal, isModalOpen } = useCart()
+
+    console.log(total, itemsQuantity)
+
+    const handleViewCartClick = () => {
+        // Cerrar el dropdown quitando el focus
+        document.activeElement.blur()
+
+        // Abrir el modal
+        openModal()
+    }
+
     return (
         <>
             <div className="flex-none">
@@ -25,7 +40,7 @@ const Cart = () => {
                                 />{' '}
                             </svg>
                             <span className="badge badge-sm indicator-item">
-                                2
+                                {itemsQuantity}
                             </span>
                         </div>
                     </div>
@@ -34,10 +49,17 @@ const Cart = () => {
                         className="card card-compact dropdown-content bg-base-100 z-1000 mt-3 w-52 shadow"
                     >
                         <div className="card-body">
-                            <span className="text-lg font-bold">2 Item</span>
-                            <span className="text-info">Subtotal: $300</span>
+                            <span className="text-lg font-bold">
+                                {itemsQuantity} items
+                            </span>
+                            <span className="text-info">
+                                Subtotal: PEN {total}
+                            </span>
                             <div className="card-actions">
-                                <button className="btn btn-primary btn-block">
+                                <button
+                                    onClick={handleViewCartClick}
+                                    className="btn btn-primary btn-block"
+                                >
                                     Ver Carrito
                                 </button>
                             </div>
@@ -45,6 +67,8 @@ const Cart = () => {
                     </div>
                 </div>
             </div>
+
+            {isModalOpen && <ModalCart />}
         </>
     )
 }

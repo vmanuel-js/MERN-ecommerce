@@ -114,14 +114,11 @@ export const loginUser = async (req, res) => {
 }
 
 export const profile = async (req, res) => {
-    // Extraer el accessToken enviado por el cliente
     const token = req.cookies.accessToken
 
     try {
-        // Verificar o decodificar el token
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
-        // Buscar el usuario en la BD
         const user = await UserModel.findById(decoded.userId)
 
         if (!user) {
@@ -130,14 +127,12 @@ export const profile = async (req, res) => {
 
         res.status(200).json({
             id: user._id,
+            username: user.username,
             email: user.email,
             isAdmin: user.isAdmin,
         })
     } catch (error) {
         res.status(401).json({ message: 'No autorizado' })
-    }
-    return {
-        user: 'test user',
     }
 }
 
