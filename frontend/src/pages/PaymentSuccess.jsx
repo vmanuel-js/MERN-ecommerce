@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { Link, useSearchParams } from 'react-router'
 import { FaCheckCircle } from 'react-icons/fa'
 import { toast } from 'react-hot-toast'
-import { useCart } from '../Context/CartContext'
+import { useCart } from '../context/CartContext.jsx'
 
 const PaymentSuccess = () => {
     const [searchParams] = useSearchParams()
