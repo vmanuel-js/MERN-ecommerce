@@ -1,11 +1,18 @@
 import { Link } from 'react-router-dom'
 import { useUser } from '../../context/UserContext.jsx'
 import { FaShoppingCart } from 'react-icons/fa'
+import { useCart } from '../../context/CartContext.jsx'
 
 export const CardProduct = ({
     product: { _id, name, price, imageUrl, description, stock },
 }) => {
     const { isAuthenticated } = useUser()
+    const { addToCart, loading, openModal } = useCart()
+
+    const handleAddToCart = async () => {
+        await addToCart({ _id, name, price, imageUrl, description, stock })
+        openModal() // Abrir el modal del carrito después de agregar el producto
+    }
     return (
         <div className="card bg-base-100 w-80 lg:w-[30%] mt-4 shadow-lg">
             <figure>
@@ -27,7 +34,8 @@ export const CardProduct = ({
                         Ver detalles
                     </Link>
                     <button
-                        disabled={stock === 0}
+                        onClick={handleAddToCart}
+                        disabled={loading || stock === 0}
                         className="btn btn-success btn-sm md:btn-md"
                     >
                         <FaShoppingCart size={16} />
