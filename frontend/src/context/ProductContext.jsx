@@ -15,7 +15,7 @@ export const ProductContext = createContext({})
 export const ProductContextProvider = ({ children }) => {
     // Estados
     const [products, setProducts] = useState([])
-    const [productsLoading, setProductsLoading] = useState([])
+    const [productsLoading, setProductsLoading] = useState(true)
     const [product, setProduct] = useState({})
     const [productLoading, setProductLoading] = useState(true)
     const [error, setError] = useState(null)

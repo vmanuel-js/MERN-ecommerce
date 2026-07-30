@@ -41,7 +41,9 @@ export const updateCartService = async (userId, productId, quantity) => {
         })
         return response.data
     } catch (error) {
-        throw new Error('Error al actualizar el carrito')
+        throw new Error(
+            error.response?.data?.message || 'Error al actualizar el carrito',
+        )
     }
 }
 

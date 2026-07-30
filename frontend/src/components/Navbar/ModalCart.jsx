@@ -21,7 +21,163 @@ export const ModalCart = () => {
 
     return (
         <div className="modal modal-open px-4">
-            <h1>Modal</h1>
+            <section className="modal-box w-full max-w-2xl">
+                <div className="flex justify-between items-center mb-4">
+                    <h3 className="font-bold text-lg">Carrito de Compras:</h3>
+                    <button
+                        onClick={closeModal}
+                        className="btn btn-sm btn-circle btn-ghost"
+                    >
+                        X
+                    </button>
+                </div>
+                {loading ? (
+                    <div className="text-center py-8">
+                        <span className="loading loading-spinner loading-lg"></span>
+                        <p className="text-gray-500 mt-2">
+                            Actualizando carrito...
+                        </p>
+                    </div>
+                ) : cart.length === 0 ? (
+                    <div className="text-center py-8">
+                        <p className="text-gray-500">Tu carrito está vacío</p>
+                    </div>
+                ) : (
+                    <>
+                        <div className="space-y-4 max-h-96 flex flex-col gap-4 overflow-y-auto rounded">
+                            {cart.map((item) => (
+                                <div
+                                    key={item._id}
+                                    className="flex flex-wrap items-center md:flex-row gap-4 rounded-lg"
+                                >
+                                    <img
+                                        className="w-20 h-20 object-cover aspect-square"
+                                        src={item.imageUrl}
+                                        alt={item.name}
+                                    ></img>
+                                    <div className="flex-1 flex flex-col md:flex-row md:justify-between md:items-center gap-2">
+                                        <div>
+                                            <h4 className="font-semibold">
+                                                {item.name}
+                                            </h4>
+                                            <p className="text-sm text-gray-600">
+                                                {item.price}
+                                            </p>
+                                        </div>
+
+                                        <div className="flex items-center gap-3 mt-2 md:mt-0">
+                                            <div className="flex items-center rounded-lg">
+                                                <button
+                                                    onClick={async () => {
+                                                        if (item.quantity > 1) {
+                                                            await updateQuantity(
+                                                                item._id,
+                                                                item.quantity -
+                                                                    1,
+                                                            )
+                                                        }
+                                                    }}
+                                                    disabled={
+                                                        loading ||
+                                                        item.quantity <= 1
+                                                    }
+                                                    className="p-2 border rounded bg-red-700"
+                                                >
+                                                    <FaMinus size={12} />
+                                                </button>
+                                                <span className="px-4 py-2 font-bold">
+                                                    {item.quantity}
+                                                </span>
+                                                <button
+                                                    onClick={async () => {
+                                                        await updateQuantity(
+                                                            item._id,
+                                                            item.quantity + 1,
+                                                        )
+                                                    }}
+                                                    disabled={
+                                                        loading ||
+                                                        item.quantity >=
+                                                            (item.stock || 999)
+                                                    }
+                                                    className="p-2 border rounded bg-green-600"
+                                                >
+                                                    <FaPlus size={12} />
+                                                </button>
+                                            </div>
+                                            {/* Precio subtotal */}
+                                            <span className="font-semibold text-lg">
+                                                S/ {item.price * item.quantity}
+                                            </span>
+                                            {/* Botón eliminar */}
+                                            <button
+                                                onClick={async () => {
+                                                    await removeFromCart(
+                                                        item._id,
+                                                    )
+                                                }}
+                                                disabled={loading}
+                                                className="btn btn-ghost btn-sm hover:bg-red-500"
+                                            >
+                                                <CgTrash size={19} />
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        {/* Resumen del carrito */}
+                        <div className="border-t pt-4 mt-4">
+                            <div className="flex justify-between items-center mb-2">
+                                <span>Total de artículos</span>
+                                <span className="font-semibold">
+                                    {itemsQuantity}
+                                </span>
+                            </div>
+                            <div className="flex justify-between items-center text-lg font-bold">
+                                <span>Total:</span>
+                                <span>S/ {total}</span>
+                            </div>
+                        </div>
+
+                        {/* Botones de acción */}
+                        <div className="modal-action mt-4 gap-3 flex flex-col lg:flex-row lg:justify-between">
+                            <button
+                                onClick={async () => {
+                                    if (
+                                        window.confirm(
+                                            '¿Estás seguro de que quieres vaciar el carrito?',
+                                        )
+                                    ) {
+                                        await clearCart()
+                                    }
+                                }}
+                                disabled={loading}
+                                className="btn btn-outline btn-error btn-ghost"
+                            >
+                                Vaciar carrito
+                            </button>
+                            <Link
+                                className="btn btn-ghost btn-info"
+                                onClick={closeModal}
+                                to={'/'}
+                            >
+                                Seguir comprando
+                            </Link>
+                            <Link
+                                className="btn btn-primary"
+                                onClick={closeModal}
+                                to={'/checkout'}
+                            >
+                                Proceder al pago
+                            </Link>
+                        </div>
+                    </>
+                )}
+            </section>
+
+            {/* Click fuera para cerrar el modal */}
+            <div className="modal-backdrop" onClick={closeModal}></div>
         </div>
     )
 }
