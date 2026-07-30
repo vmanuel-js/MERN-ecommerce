@@ -80,7 +80,6 @@ export const getProfileService = async () => {
         const response = await axios.get(`${API_URL}/profile`)
         return response.data
     } catch (error) {
-        console.log(error)
         throw new Error('Error al obtener el perfil')
     }
 }
