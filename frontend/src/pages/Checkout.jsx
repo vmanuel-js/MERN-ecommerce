@@ -75,8 +75,6 @@ const Checkout = () => {
 
             const response = await createOrder(orderData)
 
-            console.log(response)
-
             if (response.success && response.paymentUrl) {
                 // Mostrar mensaje de éxito
                 toast.success(
