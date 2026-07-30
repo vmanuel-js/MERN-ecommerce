@@ -9,6 +9,7 @@ import { CartContextProvider } from './context/CartContext.jsx'
 import { Toaster } from 'react-hot-toast'
 import { DetailProduct } from './pages/DetailProduct.jsx'
 import { AdminDashboard } from './pages/AdminDashboard.jsx'
+import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute.jsx'
 
 function App() {
     return (
@@ -26,7 +27,11 @@ function App() {
                             />
                             <Route
                                 path="/admin/dashboard/*"
-                                element={<AdminDashboard />}
+                                element={
+                                    <ProtectedRoute>
+                                        <AdminDashboard />
+                                    </ProtectedRoute>
+                                }
                             />
                         </Route>
                     </Routes>
