@@ -4,6 +4,8 @@ import dotenv from 'dotenv'
 import authRoutes from './routes/authRoutes.js'
 import productRoutes from './routes/productsRoutes.js'
 import cartRoutes from './routes/cartRoutes.js'
+import orderRoutes from './routes/orderRoutes.js'
+import webhookRoutes from './routes/webhookRoutes.js'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 
@@ -32,6 +34,8 @@ const PORT = 3001
 app.use('/api/auth', authRoutes)
 app.use('/api/products', productRoutes)
 app.use('/api/cart', cartRoutes)
+app.use('/api/orders', orderRoutes)
+app.use('/api/webhook', webhookRoutes)
 
 connectDB()
     .then(() => {
