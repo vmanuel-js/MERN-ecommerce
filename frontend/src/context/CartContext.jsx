@@ -55,8 +55,6 @@ export const CartContextProvider = ({ children }) => {
                 setLoading(true)
                 const userId = getUserId()
                 const response = await getCartService(userId)
-
-                console.log(response)
                 // Transformar los datos del backend al formato del frontend
                 const cartItems =
                     response.cart?.products?.map((item) => ({

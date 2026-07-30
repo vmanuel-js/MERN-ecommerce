@@ -10,6 +10,10 @@ import { Toaster } from 'react-hot-toast'
 import { DetailProduct } from './pages/DetailProduct.jsx'
 import { AdminDashboard } from './pages/AdminDashboard.jsx'
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute.jsx'
+import Checkout from './pages/Checkout.jsx'
+import PaymentSuccess from './pages/PaymentSuccess.jsx'
+import PaymentFailure from './pages/PaymentFailure.jsx'
+import PaymentPending from './pages/PaymentPending.jsx'
 
 function App() {
     return (
@@ -24,6 +28,19 @@ function App() {
                             <Route
                                 path="/detailProduct/:id"
                                 element={<DetailProduct />}
+                            />
+                            <Route path="/checkout" element={<Checkout />} />
+                            <Route
+                                path="/payment/success"
+                                element={<PaymentSuccess />}
+                            />
+                            <Route
+                                path="/payment/failure"
+                                element={<PaymentFailure />}
+                            />
+                            <Route
+                                path="/payment/pending"
+                                element={<PaymentPending />}
                             />
                             <Route
                                 path="/admin/dashboard/*"

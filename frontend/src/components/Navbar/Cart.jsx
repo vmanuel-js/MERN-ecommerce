@@ -4,8 +4,6 @@ import { useCart } from '../../context/CartContext.jsx'
 const Cart = () => {
     const { total, itemsQuantity, openModal, isModalOpen } = useCart()
 
-    console.log(total, itemsQuantity)
-
     const handleViewCartClick = () => {
         // Cerrar el dropdown quitando el focus
         document.activeElement.blur()
