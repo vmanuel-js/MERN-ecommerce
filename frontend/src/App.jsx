@@ -8,6 +8,7 @@ import { ProductContextProvider } from './context/ProductContext.jsx'
 import { CartContextProvider } from './context/CartContext.jsx'
 import { Toaster } from 'react-hot-toast'
 import { DetailProduct } from './pages/DetailProduct.jsx'
+import { AdminDashboard } from './pages/AdminDashboard.jsx'
 
 function App() {
     return (
@@ -22,6 +23,10 @@ function App() {
                             <Route
                                 path="/detailProduct/:id"
                                 element={<DetailProduct />}
+                            />
+                            <Route
+                                path="/admin/dashboard/*"
+                                element={<AdminDashboard />}
                             />
                         </Route>
                     </Routes>
