@@ -89,3 +89,36 @@ Content-Type: application/json
 
 ### GET CART TOTAL
 GET http://localhost:3001/api/cart/total/6a6a5e39d55b4b33860258a6
+
+### ----------------------------------------
+### CREATE ORDER WITH CART PRODUCTS
+POST http://localhost:3001/api/orders/create
+Content-Type: application/json
+
+{
+    "userId": "6a6a5e39d55b4b33860258a6",
+    "items": [
+        {
+            "id": "6a697b89100b41cc293330b3",
+            "name": "Hamburguesa Clásica",
+            "quantity": 1,
+            "unit_price": 14,
+            "image_url":  "https://res.cloudinary.com/uz3ydaj6/image/upload/v1785296747/hamburguesa_t3gtqv.png"
+        }
+    ],
+    "payer": {
+        "email": "user1@gmail.com"
+    },
+    "shippingInfo": {
+        "firstName": "Manuel",
+        "lastName": "Jordan",
+        "address": {
+            "street": "Av. Pan. Norte.",
+            "number": "1223",
+            "city": "Lima",
+            "state": "Lima",
+            "zipCode": "1430145"
+        },
+        "phone": "999888777"
+    }
+}
